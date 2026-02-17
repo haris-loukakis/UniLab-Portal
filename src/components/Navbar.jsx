@@ -7,7 +7,7 @@ export default function Navbar({ user }) {
   const [notifications, setNotifications] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // 1. Ακούμε για ειδοποιήσεις σε πραγματικό χρόνο
+  //Ακούμε για ειδοποιήσεις σε πραγματικό χρόνο
   useEffect(() => {
     const q = query(collection(db, "users", user.uid, "notifications"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -16,7 +16,7 @@ export default function Navbar({ user }) {
     return () => unsubscribe();
   }, [user.uid]);
 
-  // 2. Αποδοχή Αιτήματος Φιλίας
+  //Αποδοχή Αιτήματος Φιλίας
   const handleAccept = async (notification) => {
     try {
       // Προσθήκη του άλλου στις δικές μου επαφές
@@ -39,7 +39,7 @@ export default function Navbar({ user }) {
     }
   };
 
-  // 3. Απόρριψη ή Διαγραφή ειδοποίησης
+  //Απόρριψη ή Διαγραφή ειδοποίησης
   const handleDismiss = async (id) => {
     await deleteDoc(doc(db, "users", user.uid, "notifications", id));
   };

@@ -37,7 +37,7 @@ export default function Dashboard({ user }) {
     if (!newPost.trim()) return;
 
     try {
-      // 1. Δημιουργία Post
+      //Δημιουργία Post
       await addDoc(collection(db, 'posts'), {
         text: newPost,
         category: category,
@@ -46,10 +46,10 @@ export default function Dashboard({ user }) {
         createdAt: serverTimestamp()
       });
 
-      // 2. Ειδοποίηση Φίλων
+      //Ειδοποίηση Φίλων
       const contactsSnapshot = await getDocs(collection(db, "users", user.uid, "my_contacts"));
       contactsSnapshot.forEach(async (contactDoc) => {
-        const friendId = contactDoc.id; // Το ID του φίλου
+        const friendId = contactDoc.id; 
         await addDoc(collection(db, "users", friendId, "notifications"), {
           type: "new_post",
           fromEmail: user.email,
